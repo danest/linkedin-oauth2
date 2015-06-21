@@ -188,7 +188,12 @@ module LinkedIn
       elsif name = options.delete(:name)
         path += "/universal-name=#{CGI.escape(name)}"
       elsif is_admin = options.delete(:is_admin)
+        if fields = options.delete(:fields)
+          path += ":(#{fields.join(',')})"
+        end
         path += "?is-company-admin=#{CGI.escape(is_admin)}"
+      elsif fields = options.delete(:fields)
+        path+= ""
       else
         path += "/~"
       end
